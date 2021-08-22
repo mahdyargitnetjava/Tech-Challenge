@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface NetworkService {
 
-  @GET("")
-  suspend fun fetchCardsList(): ApiResponse<CardResponse>
+  @GET("tempelate.json")
+  suspend fun fetchCardsList(): ApiResponse<List<CardResponse>>
 
 }

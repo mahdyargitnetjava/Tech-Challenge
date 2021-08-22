@@ -6,11 +6,9 @@ import com.example.myapplication.data.model.mapper.ErrorResponseMapper
 import com.example.myapplication.data.model.response.ErrorResponse
 import com.skydoves.sandwich.*
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+import kotlin.random.Random
 
 class CardRepository @Inject constructor(
     private val cardDataSource: CardDataSource,
@@ -28,7 +26,7 @@ class CardRepository @Inject constructor(
 
         //handles the the case when API gets an response
         response.suspendOnSuccess {
-            emit(data)
+            emit(data.get(0).cards.get(Random.nextInt(data.get(0).cards.size)))
         }
             // handles the case when the API request gets an error response.
             // e.g., internal server error.
@@ -40,5 +38,6 @@ class CardRepository @Inject constructor(
             // e.g., network connection error.
             .onException { onError(message) }
     }.onStart { onStart() }.onCompletion { onComplete() }.flowOn(ioDispatcher)
+
 
 }

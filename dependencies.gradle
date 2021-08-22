@@ -9,9 +9,10 @@ ext.versions = [
     spotlessGradle       : '5.14.0',
     versionPlugin        : '0.28.0',
     ktlint               : '0.40.0',
+    KotlinSerialization  : '1.4.10',
 
     // kotlin
-    kotlin               : '1.5.10',
+    kotlin               : '1.4.32',
 
     // support library
     materialVersion      : '1.2.0-alpha06',

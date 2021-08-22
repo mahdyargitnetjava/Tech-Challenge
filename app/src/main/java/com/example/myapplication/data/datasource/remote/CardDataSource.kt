@@ -9,6 +9,6 @@ class CardDataSource @Inject constructor(
   private val networkService: NetworkService
 ) {
 
-  suspend fun fetchCardsList(): ApiResponse<CardResponse> = networkService.fetchCardsList()
+  suspend fun fetchCardsList(): ApiResponse<List<CardResponse>> = networkService.fetchCardsList()
 
 }
