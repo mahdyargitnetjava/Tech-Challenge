@@ -36,7 +36,13 @@ object NetworkModule {
     return Retrofit.Builder()
       .client(okHttpClient)
       .baseUrl("https://raw.githubusercontent.com/AmirrezaRotamian/Tech-Challenge/master/")
-      .addConverterFactory(MoshiConverterFactory.create())
+      .addConverterFactory(
+        Json { isLenient = true
+          ignoreUnknownKeys = true
+          allowStructuredMapKeys = true
+          prettyPrint = true
+          coerceInputValues = true
+        }.asConverterFactory("application/json".toMediaType()))
       .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
       .build()
   }

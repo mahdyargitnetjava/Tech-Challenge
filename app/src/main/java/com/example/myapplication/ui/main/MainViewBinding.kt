@@ -28,7 +28,7 @@ import com.example.myapplication.databinding.VibratorItemBinding
 import timber.log.Timber
 import java.lang.Exception
 import android.content.res.AssetFileDescriptor
-import com.example.myapplication.data.model.response.CardResponse
+import com.example.myapplication.data.model.response.Card
 
 
 object MainViewBinding {
@@ -58,7 +58,7 @@ object MainViewBinding {
 
     @JvmStatic
     @BindingAdapter("bindCard")
-    fun bindCard(view :FrameLayout, card: CardResponse.CardInfo?){
+    fun bindCard(view :FrameLayout, card: Card.CardInfo?){
         card?.run {
             when(card.code){
                 0 -> {

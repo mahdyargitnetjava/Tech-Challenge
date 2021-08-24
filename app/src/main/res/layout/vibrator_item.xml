@@ -5,7 +5,7 @@
     <data>
         <variable
             name="model"
-            type="com.example.myapplication.data.model.response.CardResponse.CardInfo" />
+            type="com.example.myapplication.data.model.response.Card.CardInfo" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -10,5 +10,11 @@ class HttpRequestInterceptor : Interceptor {
     val request = originalRequest.newBuilder().url(originalRequest.url).build()
     Timber.d(request.toString())
     return chain.proceed(request)
+
+
+
   }
+
+
+
 }
