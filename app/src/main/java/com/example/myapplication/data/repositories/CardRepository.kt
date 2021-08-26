@@ -4,9 +4,11 @@ import androidx.annotation.WorkerThread
 import com.example.myapplication.data.datasource.remote.CardDataSource
 import com.example.myapplication.data.model.mapper.ErrorResponseMapper
 import com.example.myapplication.data.model.response.ErrorResponse
+import com.example.myapplication.net.NetworkService
 import com.skydoves.sandwich.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
+import retrofit2.Retrofit
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -26,7 +28,7 @@ class CardRepository @Inject constructor(
 
         //handles the the case when API gets an response
         response.suspendOnSuccess {
-            emit(data.get(0).cards.get(Random.nextInt(data.get(0).cards.size)))
+            emit(data.cards[Random.nextInt(data.cards.size)])
         }
             // handles the case when the API request gets an error response.
             // e.g., internal server error.

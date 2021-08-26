@@ -2,7 +2,7 @@ package com.example.myapplication.ui.main
 
 import androidx.annotation.WorkerThread
 import androidx.databinding.Bindable
-import com.example.myapplication.data.model.response.Card
+import com.example.myapplication.data.model.response.BaseCard
 import com.example.myapplication.data.repositories.CardRepository
 import com.skydoves.bindables.BindingViewModel
 import com.skydoves.bindables.bindingProperty
@@ -24,11 +24,15 @@ class MainViewModel @Inject constructor(
         private set
 
     @get:Bindable
+    var isNewCardComing: Boolean by bindingProperty(true)
+        private set
+
+    @get:Bindable
     var toastMessage: String? by bindingProperty(null)
         private set
 
     @get:Bindable
-    var fetchCards: Card.CardInfo? by bindingProperty(null)
+    var fetchCards: BaseCard? by bindingProperty(null)
         private set
 
     init {
@@ -41,8 +45,8 @@ class MainViewModel @Inject constructor(
         if (!isLoading) {
             CoroutineScope(Dispatchers.IO).launch {
                 cardRepository.getCards(
-                    onStart = { isLoading = true },
-                    onComplete = { isLoading = false },
+                    onStart = { isLoading = true; isNewCardComing = isLoading },
+                    onComplete = { isLoading = false; isNewCardComing = isLoading },
                     onError = { toastMessage = it }
                 ).collect {
                     fetchCards = it

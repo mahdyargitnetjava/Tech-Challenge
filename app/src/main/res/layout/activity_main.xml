@@ -24,27 +24,39 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <FrameLayout
-            android:id="@+id/frameLayout"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardContainer"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
-            bindCard="@{vm.fetchCards}"
+            gone="@{vm.newCardComing}"
+            app:cardCornerRadius="15dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/selector">
 
-        </FrameLayout>
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                bindCard="@{vm.fetchCards}"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tag="cardContainer" />
+
+        </androidx.cardview.widget.CardView>
 
         <ProgressBar
             android:id="@+id/progressbar"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            app:gone="@{!vm.loading}"
-            app:layout_constraintStart_toStartOf="@+id/frameLayout"
-            app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+            gone="@{!vm.loading}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

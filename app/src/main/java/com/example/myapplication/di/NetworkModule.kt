@@ -2,6 +2,7 @@ package com.example.myapplication.di
 
 import com.example.myapplication.net.HttpRequestInterceptor
 import com.example.myapplication.data.datasource.remote.CardDataSource
+import com.example.myapplication.data.model.response.*
 import com.example.myapplication.net.NetworkService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
@@ -11,10 +12,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -37,11 +39,15 @@ object NetworkModule {
       .client(okHttpClient)
       .baseUrl("https://raw.githubusercontent.com/AmirrezaRotamian/Tech-Challenge/master/")
       .addConverterFactory(
-        Json { isLenient = true
-          ignoreUnknownKeys = true
-          allowStructuredMapKeys = true
-          prettyPrint = true
-          coerceInputValues = true
+        Json {
+          classDiscriminator = "code"
+          serializersModule = SerializersModule {
+              polymorphic(BaseCard::class) {
+                  subclass(Picture::class, Picture.serializer())
+                  subclass(Sound::class, Sound.serializer())
+                  subclass(Vibrate::class, Vibrate.serializer())
+              }
+          }
         }.asConverterFactory("application/json".toMediaType()))
       .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
       .build()
